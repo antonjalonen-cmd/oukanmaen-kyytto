@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="fi" data-lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oukanmäen kyyttö – Itäsuomenkarja Tornionjoen rannoilta</title>
+<meta name="description" content="Oukanmäen kyyttö kasvattaa Suomen vanhimpaa ja uhanalaista karjarotua – itäsuomenkarjaa – Tornion Kantojärvessä. Luonnonlaidunlihaa suoraan tilalta ja REKO-renkaista.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Headland+One&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --river:    #1e2e3a;
+  --river-lt: #2e4252;
+  --river-md: #3a5566;
+  --reed:     #c89040;
+  --reed-lt:  #daa858;
+  --snow:     #f5f2ea;
+  --snow-dk:  #eae6db;
+  --mist:     #9ab8c0;
+  --mist-lt:  #c8dde4;
+  --tundra:   #5a4a38;
+  --stone:    #8a8070;
+  --ink:      #1a2028;
+  --radius:   0px;
+  --ff-head:  'Headland One', Georgia, serif;
+  --ff-body:  'Libre Franklin', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ff-body);
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--snow);
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+.lang-fi, .lang-sv, .lang-en { display: none; }
+[data-lang="fi"] .lang-fi,
+[data-lang="sv"] .lang-sv,
+[data-lang="en"] .lang-en { display: revert; }
+[data-lang="fi"] .lang-fi-inline,
+[data-lang="sv"] .lang-sv-inline,
+[data-lang="en"] .lang-en-inline { display: inline; }
+.lang-fi-inline, .lang-sv-inline, .lang-en-inline { display: none; }
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--river);
+  border-bottom: 1px solid rgba(154,184,192,.14);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 62px;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--ff-head);
+  font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+  color: var(--snow);
+  letter-spacing: 0.03em;
+}
+.nav-logo {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(200,144,64,.4);
+}
+.nav-links {
+  display: flex; align-items: center; gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--ff-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(245,242,234,.7);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--reed-lt); }
+.lang-bar {
+  display: flex; align-items: center; gap: 2px; margin-left: 24px;
+}
+.lang-btn {
+  background: none; border: 1px solid rgba(154,184,192,.25);
+  color: rgba(245,242,234,.55);
+  font-family: var(--ff-body); font-size: 0.68rem;
+  font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 3px 7px; cursor: pointer; transition: all 0.2s;
+}
+.lang-btn.active,
+.lang-btn:hover {
+  border-color: var(--reed);
+  color: var(--reed-lt);
+}
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 22px; height: 1.5px;
+  background: rgba(245,242,234,.8);
+  transition: all 0.3s;
+}
+.mobile-menu {
+  display: none;
+  position: fixed; inset: 0; z-index: 99;
+  background: rgba(16,22,28,.96);
+  flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+  backdrop-filter: blur(6px);
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--ff-head);
+  font-size: 1.4rem;
+  color: var(--snow);
+  letter-spacing: 0.04em;
+  opacity: 0.9;
+}
+.mobile-menu a:hover { color: var(--reed-lt); opacity: 1; }
+.mobile-close {
+  position: absolute; top: 20px; right: 28px;
+  background: none; border: none; color: rgba(245,242,234,.7);
+  font-size: 1.8rem; cursor: pointer; line-height: 1;
+}
+.mobile-lang {
+  display: flex; gap: 8px; margin-top: 8px;
+}
+.mobile-lang .lang-btn { padding: 5px 12px; font-size: 0.78rem; }
+@media(max-width:860px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .lang-bar { display: none; }
+}
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  width: 100%; height: 100vh; min-height: 620px;
+  overflow: hidden;
+  background: var(--river);
+}
+.hero-ph {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg,
+    #1a2e1a 0%,
+    #243a2e 25%,
+    #1e2e3a 55%,
+    #141e28 100%
+  );
+}
+.hero-ph img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.75;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(14,18,22,.82) 0%,
+    rgba(14,18,22,.45) 30%,
+    rgba(14,18,22,.08) 60%,
+    transparent 100%
+  );
+}
+.hero-content {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 92px 32px 0;
+  text-align: center;
+  z-index: 2;
+}
+.hero-eyebrow {
+  font-family: var(--ff-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--reed);
+  margin-bottom: 16px;
+  display: block;
+}
+.hero-title {
+  font-family: var(--ff-head);
+  font-size: clamp(2.4rem, 6.5vw, 5.6rem);
+  color: var(--snow);
+  letter-spacing: 0.01em;
+  line-height: 1.08;
+  margin-bottom: 18px;
+}
+.hero-sub {
+  font-family: var(--ff-body);
+  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+  font-weight: 300;
+  color: rgba(245,242,234,.75);
+  letter-spacing: 0.04em;
+  max-width: 540px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+.hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-primary, .btn-outline {
+  display: inline-block;
+  font-family: var(--ff-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  transition: all 0.25s;
+}
+.btn-primary {
+  background: var(--reed);
+  color: var(--river);
+}
+.btn-primary:hover { background: var(--reed-lt); }
+.btn-outline {
+  border: 1.5px solid rgba(245,242,234,.4);
+  color: var(--snow);
+}
+.btn-outline:hover {
+  border-color: var(--reed);
+  color: var(--reed-lt);
+}
+/* scroll cue */
+.hero-scroll {
+  position: absolute; bottom: 36px; left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 52px;
+  background: rgba(154,184,192,.25);
+  z-index: 2;
+}
+.hero-scroll::after {
+  content:'';
+  position: absolute; bottom: 0; left: -3px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--reed);
+  animation: scrollDot 2.2s ease-in-out infinite;
+}
+@keyframes scrollDot {
+  0%   { bottom: 52px; opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 0.8; }
+  100% { bottom: 0px; opacity: 0; }
+}
+
+/* ─── STATS STRIP ─── */
+.stats {
+  background: var(--river-lt);
+  padding: 44px 0;
+}
+.stats-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 2px;
+  padding: 0 24px;
+}
+.stat-item {
+  text-align: center; padding: 20px 16px;
+}
+.stat-num {
+  font-family: var(--ff-head);
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  color: var(--reed);
+  display: block; margin-bottom: 6px;
+}
+.stat-label {
+  font-size: 0.76rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--mist); line-height: 1.4;
+}
+@media(max-width:640px) {
+  .stats-grid { grid-template-columns: repeat(2,1fr); }
+}
+
+/* ─── SHARED SECTION STYLES ─── */
+.section { padding: 88px 24px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--reed); display: block; margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--ff-head);
+  font-size: clamp(1.5rem, 3.5vw, 2.6rem);
+  color: var(--river); line-height: 1.2;
+  margin-bottom: 22px;
+}
+.section-body {
+  font-size: 1rem; font-weight: 300;
+  color: var(--tundra); line-height: 1.75;
+  max-width: 640px;
+}
+.divider {
+  width: 48px; height: 1.5px;
+  background: var(--reed);
+  margin: 20px 0;
+}
+
+/* ─── 2-COL LAYOUT ─── */
+.two-col {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+  align-items: start;
+}
+.two-col.reversed { direction: rtl; }
+.two-col.reversed > * { direction: ltr; }
+@media(max-width:780px) {
+  .two-col, .two-col.reversed { grid-template-columns: 1fr; direction: ltr; gap: 40px; }
+}
+.col-photo {
+  position: relative;
+}
+.col-photo .ph {
+  width: 100%; aspect-ratio: 4/3;
+  background: var(--river-lt);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px;
+}
+.col-photo .ph img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.ph-tag {
+  font-family: var(--ff-body);
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(154,184,192,.55);
+}
+.ph-icon { font-size: 1.8rem; opacity: 0.35; }
+
+/* ─── KYYTTO SECTION ─── */
+.kyytto { background: var(--snow-dk); }
+.fact-cards {
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 16px;
+  margin-top: 32px;
+}
+.fact-card {
+  padding: 18px 20px;
+  border-left: 3px solid var(--reed);
+  background: var(--snow);
+}
+.fact-card-label {
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--stone); display: block; margin-bottom: 6px;
+}
+.fact-card-value {
+  font-family: var(--ff-head);
+  font-size: 0.95rem;
+  color: var(--river);
+  line-height: 1.4;
+}
+@media(max-width:480px) { .fact-cards { grid-template-columns: 1fr; } }
+
+/* ─── LAJISAILYTTAJAT (SIGNATURE) ─── */
+.lajit { background: var(--river); }
+.lajit .section-eyebrow { color: var(--reed); }
+.lajit .section-title { color: var(--snow); }
+.lajit .section-body { color: var(--mist-lt); }
+.lajit-grid {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 1px;
+  background: rgba(154,184,192,.1);
+  margin-top: 48px;
+}
+.lajit-card {
+  padding: 36px 28px 40px;
+  background: var(--river);
+  position: relative;
+  border-top: 3px solid transparent;
+  transition: border-color 0.3s;
+}
+.lajit-card:hover { border-top-color: var(--reed); }
+.lajit-icon {
+  font-size: 2.4rem;
+  display: block; margin-bottom: 20px;
+}
+.lajit-status {
+  display: inline-block;
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid;
+  margin-bottom: 14px;
+}
+.lajit-status.endangered {
+  border-color: rgba(200,144,64,.5);
+  color: var(--reed);
+}
+.lajit-status.watch {
+  border-color: rgba(154,184,192,.4);
+  color: var(--mist);
+}
+.lajit-name {
+  font-family: var(--ff-head);
+  font-size: 1.05rem;
+  color: var(--snow);
+  display: block; margin-bottom: 8px;
+  line-height: 1.3;
+}
+.lajit-latin {
+  font-style: italic;
+  font-size: 0.78rem; font-weight: 300;
+  color: var(--mist); display: block;
+  margin-bottom: 14px;
+  letter-spacing: 0.04em;
+}
+.lajit-desc {
+  font-size: 0.82rem; font-weight: 300;
+  color: rgba(200,220,228,.7);
+  line-height: 1.65;
+}
+@media(max-width:900px) { .lajit-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px) { .lajit-grid { grid-template-columns: 1fr; } }
+
+/* ─── TUOTTEET ─── */
+.tuotteet { background: var(--snow); }
+.product-cards {
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 32px;
+  margin-top: 48px;
+}
+.product-card {
+  border: 1px solid rgba(90,74,56,.15);
+  overflow: hidden;
+}
+.product-photo .ph {
+  width: 100%; aspect-ratio: 16/9;
+  background: var(--river-lt);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 8px;
+}
+.product-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.product-body { padding: 28px 24px 32px; }
+.product-num {
+  font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--reed); display: block; margin-bottom: 10px;
+}
+.product-name {
+  font-family: var(--ff-head);
+  font-size: 1.2rem;
+  color: var(--river); margin-bottom: 12px;
+  line-height: 1.2;
+}
+.product-desc {
+  font-size: 0.88rem; font-weight: 300;
+  color: var(--tundra); line-height: 1.7;
+  margin-bottom: 18px;
+}
+.product-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.product-tag {
+  font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 9px;
+  border: 1px solid rgba(90,74,56,.2);
+  color: var(--tundra);
+}
+@media(max-width:640px) { .product-cards { grid-template-columns: 1fr; } }
+
+/* ─── SAARILAITUMET ─── */
+.saari { background: var(--snow-dk); }
+
+/* ─── TARINA ─── */
+.tarina { background: var(--snow); }
+.blockquote {
+  margin: 28px 0;
+  padding: 20px 24px;
+  border-left: 3px solid var(--reed);
+  background: var(--snow-dk);
+}
+.blockquote p {
+  font-family: var(--ff-head);
+  font-size: 1.1rem; font-style: italic;
+  color: var(--river); line-height: 1.6;
+}
+.blockquote cite {
+  display: block; margin-top: 10px;
+  font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--stone);
+}
+
+/* ─── GALLERY ─── */
+.gallery { background: var(--river-lt); padding: 64px 0; }
+.gallery-title-row {
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 24px 36px;
+}
+.gallery-grid {
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 4px;
+}
+.gallery-cell { position: relative; overflow: hidden; }
+.gallery-cell:nth-child(1) { grid-row: 1 / 3; }
+.gallery-cell .ph {
+  width: 100%;
+  background: var(--river-md);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 8px;
+}
+.gallery-cell:nth-child(1) .ph { min-height: 360px; }
+.gallery-cell:nth-child(n+2) .ph { min-height: 176px; }
+.gallery-cell img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+@media(max-width:700px) {
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-cell:nth-child(1) { grid-row: auto; grid-column: 1/-1; }
+  .gallery-cell:nth-child(1) .ph { min-height: 240px; }
+}
+
+/* ─── TILAUS ─── */
+.tilaus { background: var(--snow-dk); }
+.steps {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 32px;
+  margin-top: 48px;
+  position: relative;
+}
+.steps::before {
+  content:'';
+  position: absolute; top: 28px; left: calc(1/6 * 100%); right: calc(1/6 * 100%);
+  height: 1px; background: rgba(90,74,56,.15);
+}
+.step-item { text-align: center; position: relative; }
+.step-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 1.5px solid var(--reed);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-family: var(--ff-head);
+  font-size: 1.1rem;
+  color: var(--reed);
+  background: var(--snow-dk);
+  position: relative; z-index: 1;
+}
+.step-title {
+  font-family: var(--ff-head);
+  font-size: 1rem; color: var(--river);
+  margin-bottom: 10px;
+}
+.step-desc {
+  font-size: 0.85rem; font-weight: 300;
+  color: var(--tundra); line-height: 1.65;
+}
+@media(max-width:600px) {
+  .steps { grid-template-columns: 1fr; }
+  .steps::before { display: none; }
+}
+
+/* ─── YHTEYSTIEDOT ─── */
+.contact { background: var(--river); padding: 80px 24px; }
+.contact-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+}
+.contact .section-title { color: var(--snow); }
+.contact .section-eyebrow { color: var(--reed); }
+.contact-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  margin-bottom: 22px;
+}
+.contact-icon { font-size: 1.1rem; margin-top: 2px; opacity: 0.7; }
+.contact-label {
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--mist); display: block; margin-bottom: 4px;
+}
+.contact-value {
+  font-size: 0.95rem; font-weight: 400;
+  color: rgba(245,242,234,.85); line-height: 1.5;
+}
+.contact-value a { color: var(--reed-lt); transition: opacity 0.2s; }
+.contact-value a:hover { opacity: 0.8; }
+.contact-reko {
+  margin-top: 32px;
+  padding: 20px 22px;
+  border: 1px solid rgba(154,184,192,.15);
+  background: rgba(154,184,192,.05);
+}
+.contact-reko-title {
+  font-family: var(--ff-head);
+  font-size: 0.95rem; color: var(--snow);
+  margin-bottom: 8px;
+}
+.contact-reko-body {
+  font-size: 0.82rem; font-weight: 300;
+  color: var(--mist-lt); line-height: 1.6;
+}
+.map-ph {
+  width: 100%; aspect-ratio: 4/3;
+  background: var(--river-lt);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px;
+  color: rgba(154,184,192,.5);
+}
+.map-link {
+  margin-top: 12px;
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--reed); letter-spacing: 0.06em;
+}
+.map-link:hover { color: var(--reed-lt); }
+@media(max-width:780px) {
+  .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink);
+  padding: 32px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 14px;
+}
+.footer-brand {
+  display: flex; align-items: center; gap: 10px;
+}
+.footer-logo {
+  width: 28px; height: 28px;
+  border-radius: 50%; object-fit: cover;
+  border: 1px solid rgba(200,144,64,.3);
+}
+.footer-name {
+  font-family: var(--ff-head);
+  font-size: 0.85rem; color: rgba(245,242,234,.6);
+}
+.footer-demo {
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.1em;
+  color: rgba(245,242,234,.35);
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <img src="images/logo.jpg" alt="Oukanmäen kyyttö logo" class="nav-logo">
+    <span>Oukanmäen kyyttö</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#kyytto"><span class="lang-fi-inline">Rotu</span><span class="lang-sv-inline">Ras</span><span class="lang-en-inline">Breed</span></a></li>
+    <li><a href="#lajit"><span class="lang-fi-inline">Suojelu</span><span class="lang-sv-inline">Bevarande</span><span class="lang-en-inline">Conservation</span></a></li>
+    <li><a href="#tuotteet"><span class="lang-fi-inline">Tuotteet</span><span class="lang-sv-inline">Produkter</span><span class="lang-en-inline">Products</span></a></li>
+    <li><a href="#tarina"><span class="lang-fi-inline">Tarina</span><span class="lang-sv-inline">Historia</span><span class="lang-en-inline">Story</span></a></li>
+    <li><a href="#contact"><span class="lang-fi-inline">Yhteystiedot</span><span class="lang-sv-inline">Kontakt</span><span class="lang-en-inline">Contact</span></a></li>
+    <div class="lang-bar">
+      <button class="lang-btn active" data-l="fi">FI</button>
+      <button class="lang-btn" data-l="sv">SV</button>
+      <button class="lang-btn" data-l="en">EN</button>
+    </div>
+  </ul>
+  <button class="hamburger" aria-label="Menu" id="hamburgerBtn">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="closeMenu">&#x2715;</button>
+  <a href="#kyytto" class="mobile-link">
+    <span class="lang-fi">Rotu</span>
+    <span class="lang-sv">Ras</span>
+    <span class="lang-en">Breed</span>
+  </a>
+  <a href="#lajit" class="mobile-link">
+    <span class="lang-fi">Suojelu</span>
+    <span class="lang-sv">Bevarande</span>
+    <span class="lang-en">Conservation</span>
+  </a>
+  <a href="#tuotteet" class="mobile-link">
+    <span class="lang-fi">Tuotteet</span>
+    <span class="lang-sv">Produkter</span>
+    <span class="lang-en">Products</span>
+  </a>
+  <a href="#tarina" class="mobile-link">
+    <span class="lang-fi">Tarina</span>
+    <span class="lang-sv">Historia</span>
+    <span class="lang-en">Story</span>
+  </a>
+  <a href="#contact" class="mobile-link">
+    <span class="lang-fi">Yhteystiedot</span>
+    <span class="lang-sv">Kontakt</span>
+    <span class="lang-en">Contact</span>
+  </a>
+  <div class="mobile-lang">
+    <button class="lang-btn active" data-l="fi">FI</button>
+    <button class="lang-btn" data-l="sv">SV</button>
+    <button class="lang-btn" data-l="en">EN</button>
+  </div>
+</div>
+
+<!-- HERO: TOP-CENTER TEXT PLACEMENT over full-bleed pastoral photo -->
+<section class="hero">
+  <div class="hero-ph">
+    <img src="images/hero.jpg" alt="Oukanmäen kyyttöjä Tornionjoen rantaniityillä">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">
+      <span class="lang-fi">Kantojärvi, Tornio &nbsp;·&nbsp; 65°46'N 24°28'E</span>
+      <span class="lang-sv">Kantojärvi, Torneå &nbsp;·&nbsp; 65°46'N 24°28'E</span>
+      <span class="lang-en">Kantojärvi, Tornio &nbsp;·&nbsp; 65°46'N 24°28'E</span>
+    </span>
+    <h1 class="hero-title">
+      <span class="lang-fi">Oukanmäen<br>kyyttö</span>
+      <span class="lang-sv">Oukanmäki<br>Östfinsk boskap</span>
+      <span class="lang-en">Oukanmäen<br>Kyyttö Farm</span>
+    </h1>
+    <p class="hero-sub">
+      <span class="lang-fi">Suomen vanhimman ja uhanalaisen karjarodun, itäsuomenkarja–kyytön, kasvattaja Tornionjoen tulvaniityillä. Luonnonlaidunlihaa yli neljän vuosikymmenen sitoutumisella.</span>
+      <span class="lang-sv">Uppfödare av Finlands äldsta och utrotningshotade nötkreatursras – östfinsk boskap – på Torneälvens översvämmade ängar. Naturbeteskött med fyra decenniers hängivelse.</span>
+      <span class="lang-en">Breeding Finland's oldest and most endangered cattle breed – East Finnish Cattle (Kyyttö) – on Tornionjoki river flood meadows. Natural pasture beef raised with four decades of devotion.</span>
+    </p>
+    <div class="hero-btns">
+      <a href="#tuotteet" class="btn-primary">
+        <span class="lang-fi">Tilaa lihaa</span>
+        <span class="lang-sv">Beställ kött</span>
+        <span class="lang-en">Order meat</span>
+      </a>
+      <a href="#kyytto" class="btn-outline">
+        <span class="lang-fi">Tutustu rotuun</span>
+        <span class="lang-sv">Lär dig om rasen</span>
+        <span class="lang-en">Meet the breed</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll"></div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats reveal">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <span class="stat-num">1898</span>
+      <span class="stat-label">
+        <span class="lang-fi">Rotuyhdistys perustettu</span>
+        <span class="lang-sv">Rasförening grundad</span>
+        <span class="lang-en">Breed association founded</span>
+      </span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">
+        <span class="lang-fi">Uhanalainen</span>
+        <span class="lang-sv">Utrotningshotad</span>
+        <span class="lang-en">Endangered</span>
+      </span>
+      <span class="stat-label">
+        <span class="lang-fi">Suomen vanhin karjarotu</span>
+        <span class="lang-sv">Finlands äldsta boskapras</span>
+        <span class="lang-en">Finland's oldest cattle breed</span>
+      </span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">4+</span>
+      <span class="stat-label">
+        <span class="lang-fi">Uhanalaista rotua suojeltu</span>
+        <span class="lang-sv">Hotade raser bevaras</span>
+        <span class="lang-en">Endangered breeds preserved</span>
+      </span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">
+        <span class="lang-fi">Suora</span>
+        <span class="lang-sv">Direkt</span>
+        <span class="lang-en">Direct</span>
+      </span>
+      <span class="stat-label">
+        <span class="lang-fi">Myynti tilalta ja REKO</span>
+        <span class="lang-sv">Försäljning från gård och REKO</span>
+        <span class="lang-en">Sales from farm and REKO</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- KYYTTO SECTION -->
+<section class="section kyytto reveal" id="kyytto">
+  <div class="section-inner">
+    <div class="two-col">
+      <div class="col-photo">
+        <div class="ph" style="min-height:400px">
+          <img src="images/kyytto1.jpg" alt="Kyyttölehmä laitumella" onerror="this.style.display='none'">
+          <span class="ph-icon">🐄</span>
+          <span class="ph-tag">Itäsuomenkarja</span>
+        </div>
+      </div>
+      <div>
+        <span class="section-eyebrow">
+          <span class="lang-fi">Itäsuomenkarja – Kyyttö</span>
+          <span class="lang-sv">Östfinsk boskap – Kyyttö</span>
+          <span class="lang-en">East Finnish Cattle – Kyyttö</span>
+        </span>
+        <h2 class="section-title">
+          <span class="lang-fi">Suomen vanhin ja uhanalaisin karjarotu</span>
+          <span class="lang-sv">Finlands äldsta och mest hotade nötkreatursras</span>
+          <span class="lang-en">Finland's oldest and most endangered cattle breed</span>
+        </h2>
+        <div class="divider"></div>
+        <p class="section-body">
+          <span class="lang-fi">Kyyttö – viralliselta nimeltään itäsuomenkarja – on ainutlaatuinen suomalainen maatiaiskarja, jonka rotuyhdistys perustettiin jo vuonna 1898. 1900-luvun tehostuneen maatalouden myötä rotu ajautui sukupuuton partaalle, kun valtaosa suomalaisesta karjasta korvattiin ayrshirellä ja friisiläisellä.</span>
+          <span class="lang-sv">Kyyttö – officiellt östfinsk boskap – är en unik finsk lantras vars rasförening grundades redan 1898. Under 1900-talets intensiva jordbruk hamnade rasen nära utrotning då merparten av finsk boskap ersattes med ayrshire och frisisk.</span>
+          <span class="lang-en">Kyyttö – officially East Finnish Cattle – is a unique Finnish landrace whose breed association was founded in 1898. During the 20th century's agricultural intensification, the breed nearly went extinct as most Finnish cattle were replaced by Ayrshire and Friesian.</span>
+        </p>
+        <div class="fact-cards">
+          <div class="fact-card">
+            <span class="fact-card-label">
+              <span class="lang-fi">Alkuperä</span>
+              <span class="lang-sv">Ursprung</span>
+              <span class="lang-en">Origin</span>
+            </span>
+            <span class="fact-card-value">
+              <span class="lang-fi">Itä-Suomi, maatiaiskarjasta kehittynyt</span>
+              <span class="lang-sv">Östra Finland, utvecklad från lantrasen</span>
+              <span class="lang-en">East Finland, developed from ancient landraces</span>
+            </span>
+          </div>
+          <div class="fact-card">
+            <span class="fact-card-label">
+              <span class="lang-fi">Väritys</span>
+              <span class="lang-sv">Färgteckning</span>
+              <span class="lang-en">Colouring</span>
+            </span>
+            <span class="fact-card-value">
+              <span class="lang-fi">Kirjava – ruskea ja valkoinen, usein täplikkäinen</span>
+              <span class="lang-sv">Skimmig – brun och vit, ofta fläckig</span>
+              <span class="lang-en">Dappled brown and white, characteristically patchy</span>
+            </span>
+          </div>
+          <div class="fact-card">
+            <span class="fact-card-label">
+              <span class="lang-fi">Luonne</span>
+              <span class="lang-sv">Temperament</span>
+              <span class="lang-en">Temperament</span>
+            </span>
+            <span class="fact-card-value">
+              <span class="lang-fi">Ketterä ja itsenäinen, sopeutuu pohjoisen oloihin</span>
+              <span class="lang-sv">Rörlig och självständig, anpassad till norra klimat</span>
+              <span class="lang-en">Agile and independent, adapted to northern conditions</span>
+            </span>
+          </div>
+          <div class="fact-card">
+            <span class="fact-card-label">
+              <span class="lang-fi">Lihanlaaduus</span>
+              <span class="lang-sv">Köttkvalitet</span>
+              <span class="lang-en">Meat quality</span>
+            </span>
+            <span class="fact-card-value">
+              <span class="lang-fi">Poikkeuksellinen – luonnonlaidun, hidas kasvu, intensiivinen maku</span>
+              <span class="lang-sv">Exceptionell – naturbete, långsam tillväxt, intensiv smak</span>
+              <span class="lang-en">Exceptional – natural pasture, slow growth, rich flavour</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAJISAILYTTAJAT – SIGNATURE COMPONENT -->
+<section class="section lajit reveal" id="lajit">
+  <div class="section-inner">
+    <span class="section-eyebrow">
+      <span class="lang-fi">Monimuotoisuuden suojelu</span>
+      <span class="lang-sv">Bevarande av mångfald</span>
+      <span class="lang-en">Biodiversity preservation</span>
+    </span>
+    <h2 class="section-title">
+      <span class="lang-fi">Oukanmäki suojelee neljää uhanalaista alkuperäisrotua</span>
+      <span class="lang-sv">Oukanmäki bevarar fyra utrotningshotade ursprungsraser</span>
+      <span class="lang-en">Oukanmäki preserves four endangered native breeds</span>
+    </h2>
+    <p class="section-body" style="color:rgba(200,220,228,.75)">
+      <span class="lang-fi">Tila ei pelkästään kasvata kyyttöjä – se kantaa vastuuta koko alkuperäismaatalouden perimästä. Neljän uhanalaisen rodun pitäminen elossa yhdellä tilalla on Suomessa harvinainen sitoutuminen luonnon monimuotoisuuden hyväksi.</span>
+      <span class="lang-sv">Gården föder inte bara upp kyyttö – den bär ansvar för hela ursprungsjordbrukets arv. Att hålla fyra utrotningshotade raser vid liv på en och samma gård är ett sällsynt åtagande för biologisk mångfald i Finland.</span>
+      <span class="lang-en">The farm doesn't just raise kyyttö cattle – it bears responsibility for the entire heritage of original Finnish agriculture. Keeping four endangered breeds alive on one farm is a rare commitment to biodiversity in Finland.</span>
+    </p>
+    <div class="lajit-grid">
+      <!-- Kyyttö cattle -->
+      <div class="lajit-card">
+        <span class="lajit-icon">🐄</span>
+        <span class="lajit-status endangered">
+          <span class="lang-fi">Uhanalainen</span>
+          <span class="lang-sv">Utrotningshotad</span>
+          <span class="lang-en">Endangered</span>
+        </span>
+        <span class="lajit-name">
+          <span class="lang-fi">Itäsuomenkarja (Kyyttö)</span>
+          <span class="lang-sv">Östfinsk boskap (Kyyttö)</span>
+          <span class="lang-en">East Finnish Cattle (Kyyttö)</span>
+        </span>
+        <span class="lajit-latin">Bos taurus – Karja alkuperältä Vieno Nenusen Kitee-laumasta</span>
+        <p class="lajit-desc">
+          <span class="lang-fi">Tilan sydän. Oukanmäen lauma polveutuu suoraan Vieno Nenosen legendaarisesta Kitee-laumasta – yhdestä rodun puhtaimmista geneettisistä linjoista.</span>
+          <span class="lang-sv">Gårdens hjärta. Oukanmäkis hjord härstammar direkt från Vieno Nenonens legendariska Kitee-hjord – en av rasens renaste genetiska linjer.</span>
+          <span class="lang-en">The heart of the farm. Oukanmäki's herd descends directly from Vieno Nenonen's legendary Kitee herd – one of the breed's purest genetic lines.</span>
+        </p>
+      </div>
+      <!-- Brown Finnish sheep -->
+      <div class="lajit-card">
+        <span class="lajit-icon">🐑</span>
+        <span class="lajit-status endangered">
+          <span class="lang-fi">Uhanalainen</span>
+          <span class="lang-sv">Utrotningshotad</span>
+          <span class="lang-en">Endangered</span>
+        </span>
+        <span class="lajit-name">
+          <span class="lang-fi">Pohjansuomalainen (ruskea lammas)</span>
+          <span class="lang-sv">Nordfinsk (brun finsk får)</span>
+          <span class="lang-en">Northern Finnish (brown sheep)</span>
+        </span>
+        <span class="lajit-latin">Ovis aries – Pohjansuomalaisen lampaan alkuperäiset linjat</span>
+        <p class="lajit-desc">
+          <span class="lang-fi">Alkuperäiset pohjansuomalaisen lampaan ruskeat linjat ovat harvinaistuneet lähes olemattomiin. Oukanmäen kanta on yksi jäljellä olevista harvoista puhtaista populaatioista.</span>
+          <span class="lang-sv">De ursprungliga bruna linjerna av nordfinsk får har blivit näst intill obefintliga. Oukanmäkis bestånd är en av de få återstående rena populationerna.</span>
+          <span class="lang-en">The original brown lines of Northern Finnish sheep have become nearly extinct. Oukanmäki's flock is one of the few remaining pure populations.</span>
+        </p>
+      </div>
+      <!-- Finnish working horse -->
+      <div class="lajit-card">
+        <span class="lajit-icon">🐴</span>
+        <span class="lajit-status watch">
+          <span class="lang-fi">Tarkkailussa</span>
+          <span class="lang-sv">Under bevakning</span>
+          <span class="lang-en">Under monitoring</span>
+        </span>
+        <span class="lajit-name">
+          <span class="lang-fi">Suomenhevonen (työhevonen)</span>
+          <span class="lang-sv">Finskt häst (arbetslinje)</span>
+          <span class="lang-en">Finnish Horse (working bloodline)</span>
+        </span>
+        <span class="lajit-latin">Equus caballus – Suomalaisen työhevosen työlinjat</span>
+        <p class="lajit-desc">
+          <span class="lang-fi">Oukanmäellä hevonen ei ole koristus – se on työkalu. Tila käyttää hevosia traktorin sijaan, pitäen elossa perinteisiä hevostyölinjoja ja osaamista.</span>
+          <span class="lang-sv">På Oukanmäki är hästen ingen dekoration – det är ett verktyg. Gården använder hästar istället för traktor, och håller traditionella arbetslinjer och kunnande vid liv.</span>
+          <span class="lang-en">At Oukanmäki, the horse is not decoration – it's a working tool. The farm uses horses instead of tractors, keeping traditional working bloodlines and skills alive.</span>
+        </p>
+      </div>
+      <!-- Heritage chicken -->
+      <div class="lajit-card">
+        <span class="lajit-icon">🐔</span>
+        <span class="lajit-status endangered">
+          <span class="lang-fi">Uhanalainen</span>
+          <span class="lang-sv">Utrotningshotad</span>
+          <span class="lang-en">Endangered</span>
+        </span>
+        <span class="lajit-name">
+          <span class="lang-fi">Hämeenkanna (maatiaiskana)</span>
+          <span class="lang-sv">Hämeenkanna (finsk lantrasshöna)</span>
+          <span class="lang-en">Hämeenkanna (heritage chicken)</span>
+        </span>
+        <span class="lajit-latin">Gallus gallus domesticus – Suojeluohjelma 1998 alkaen</span>
+        <p class="lajit-desc">
+          <span class="lang-fi">Tila on osallistunut maatiaiskanan suojeluohjelmaan vuodesta 1998 alkaen. Hämeenkanna edustaa suomalaista perinteistä pihakanakantaa, joka on katoamassa tehotuotannon tieltä.</span>
+          <span class="lang-sv">Gården har deltagit i skyddsprogrammet för lantrasshöna sedan 1998. Hämeenkanna representerar det finska traditionella gårdskanastammet, som håller på att försvinna till följd av intensiv produktion.</span>
+          <span class="lang-en">The farm has participated in the heritage hen conservation programme since 1998. Hämeenkanna represents the traditional Finnish farmyard chicken strain, disappearing under industrial production pressure.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TUOTTEET -->
+<section class="section tuotteet reveal" id="tuotteet">
+  <div class="section-inner">
+    <span class="section-eyebrow">
+      <span class="lang-fi">Tuotteet</span>
+      <span class="lang-sv">Produkter</span>
+      <span class="lang-en">Products</span>
+    </span>
+    <h2 class="section-title">
+      <span class="lang-fi">Luonnonlaidunlihaa suoraan tilalta</span>
+      <span class="lang-sv">Naturbeteskött direkt från gården</span>
+      <span class="lang-en">Natural pasture beef direct from the farm</span>
+    </h2>
+    <div class="product-cards">
+      <div class="product-card">
+        <div class="product-photo">
+          <div class="ph" style="min-height:220px">
+            <img src="images/naudanliha.jpg" alt="Kyyttönaudanliha" onerror="this.style.display='none'">
+            <span class="ph-icon">🥩</span>
+            <span class="ph-tag">
+              <span class="lang-fi-inline">Kyyttönaudanliha</span>
+              <span class="lang-sv-inline">Kyyttö nötkött</span>
+              <span class="lang-en-inline">Kyyttö beef</span>
+            </span>
+          </div>
+        </div>
+        <div class="product-body">
+          <span class="product-num">01</span>
+          <h3 class="product-name">
+            <span class="lang-fi">Kyyttönaudanliha</span>
+            <span class="lang-sv">Kyyttö nötkött</span>
+            <span class="lang-en">Kyyttö beef</span>
+          </h3>
+          <p class="product-desc">
+            <span class="lang-fi">Ainutlaatuisen makulaatua luonnonlaidunlihaa Tornionjoen rantaniityiltä ja saarilaitumilta. Kyyttö kasvaa hitaasti ilman väkirehua – pelkällä luonnonheinällä. Tulos on poikkeuksellisen intensiivinen ja aromikas liha, jossa näkyy eläimen pitkä ulkona-olo ja monipuolinen laidun.</span>
+            <span class="lang-sv">Unikt smakrikt naturbeteskött från Torneälvens strandängar och öbeten. Kyyttö växer långsamt utan kraftfoder – enbart med naturhö. Resultatet är ett ovanligt intensivt och aromrikt kött som avspeglar djurets långa utevistelse och varierade bete.</span>
+            <span class="lang-en">Exceptionally flavourful natural pasture beef from Tornionjoki riverside meadows and island pastures. Kyyttö cattle grow slowly without concentrated feed – on natural hay alone. The result is intensely flavoured meat reflecting the animal's long outdoor life and varied pasture diet.</span>
+          </p>
+          <div class="product-tags">
+            <span class="product-tag">
+              <span class="lang-fi-inline">Luonnonlaidun</span>
+              <span class="lang-sv-inline">Naturbete</span>
+              <span class="lang-en-inline">Natural pasture</span>
+            </span>
+            <span class="product-tag">
+              <span class="lang-fi-inline">Ei väkirehua</span>
+              <span class="lang-sv-inline">Inget kraftfoder</span>
+              <span class="lang-en-inline">No concentrates</span>
+            </span>
+            <span class="product-tag">
+              <span class="lang-fi-inline">Suora myynti</span>
+              <span class="lang-sv-inline">Direktförsäljning</span>
+              <span class="lang-en-inline">Direct sales</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-photo">
+          <div class="ph" style="min-height:220px">
+            <img src="images/lampaanliha.jpg" alt="Lampaanliha" onerror="this.style.display='none'">
+            <span class="ph-icon">🐑</span>
+            <span class="ph-tag">
+              <span class="lang-fi-inline">Lampaanliha</span>
+              <span class="lang-sv-inline">Lammkött</span>
+              <span class="lang-en-inline">Lamb &amp; mutton</span>
+            </span>
+          </div>
+        </div>
+        <div class="product-body">
+          <span class="product-num">02</span>
+          <h3 class="product-name">
+            <span class="lang-fi">Pohjansuomalainen karitsanliha</span>
+            <span class="lang-sv">Nordfinsk lammkött</span>
+            <span class="lang-en">Northern Finnish lamb</span>
+          </h3>
+          <p class="product-desc">
+            <span class="lang-fi">Alkuperäisen pohjansuomalaisen lampaan karitsanliha on lajityypillistä ja maukasta. Karitsat laiduntavat kesän Tornionjoen niityillä yhdessä kyytön kanssa. Kausiluonteinen tuote, saatavilla syys-talvikauden mukaan.</span>
+            <span class="lang-sv">Lammkött från den ursprungliga nordfinsk tacka är raskaraktäristiskt och välsmakande. Lammen betar sommaren på Torneälvens ängar tillsammans med kyyttö-korna. Säsongsvara, tillgänglig höst-vinter.</span>
+            <span class="lang-en">Lamb from the original Northern Finnish breed is true-to-type and flavourful. Lambs graze summer pastures on Tornionjoki meadows alongside the kyyttö herd. Seasonal product, available autumn-winter.</span>
+          </p>
+          <div class="product-tags">
+            <span class="product-tag">
+              <span class="lang-fi-inline">Alkuperäisrotu</span>
+              <span class="lang-sv-inline">Ursprungsras</span>
+              <span class="lang-en-inline">Heritage breed</span>
+            </span>
+            <span class="product-tag">
+              <span class="lang-fi-inline">Kausiluonteinen</span>
+              <span class="lang-sv-inline">Säsongsvara</span>
+              <span class="lang-en-inline">Seasonal</span>
+            </span>
+            <span class="product-tag">REKO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAARILAITUMET -->
+<section class="section saari reveal" id="saari">
+  <div class="section-inner">
+    <div class="two-col reversed">
+      <div>
+        <span class="section-eyebrow">
+          <span class="lang-fi">Tornionjoen saarilaitumet</span>
+          <span class="lang-sv">Torneälvens öbeten</span>
+          <span class="lang-en">Tornionjoki river island pastures</span>
+        </span>
+        <h2 class="section-title">
+          <span class="lang-fi">Joka kesä: joki kutsuu</span>
+          <span class="lang-sv">Varje sommar: älven kallar</span>
+          <span class="lang-en">Every summer: the river calls</span>
+        </h2>
+        <div class="divider"></div>
+        <p class="section-body">
+          <span class="lang-fi">Kesäkuun alussa kyyttölauma siirretään perinteiseen tapaan Tornionjoen saarilaitumelle. Saaressa seisoo 1700-luvulta säilynyt tilakompleksi – kivikellareineen ja hirsinavetoihin – jotka ovat osa tilan elävää perinnettä.</span>
+          <span class="lang-sv">I början av juni flyttas kyyttö-hjorden på traditionellt sätt till betet på Torneälvens öar. På ön finns ett välbevarat gårdskomplex från 1700-talet – med stenkällare och timrade ladugårdar – som är en del av gårdens levande arv.</span>
+          <span class="lang-en">In early June, the kyyttö herd is moved in traditional fashion to the island pastures of the Tornionjoki river. The island holds an 18th-century farmstead complex – stone cellars and log barns – that forms a living part of the farm's heritage.</span>
+        </p>
+        <p class="section-body" style="margin-top:16px">
+          <span class="lang-fi">Tulvaniityt tarjoavat poikkeuksellisen monilajisen laitumen: jokivarren kaislikkoa, kosteaa niittyä, metsälaidunta ja perinteistä niittykasvillisuutta. Biologinen monimuotoisuus alkaa maaperästä, ja sen perusta lepää niissä eläimissä, jotka laiduntavat sitä.</span>
+          <span class="lang-sv">Översvämmade ängar erbjuder ett exceptionellt artmångfaldsrikt bete: älvstrandens vassar, fuktiga ängar, skogsbete och traditionell ängsvegetation. Biologisk mångfald börjar i marken, och grunden vilar i de djur som betar den.</span>
+          <span class="lang-en">The flood meadows provide exceptional biodiversity pasture: riverside reed beds, wet meadows, forest grazing, and traditional grassland vegetation. Biological diversity starts in the soil, and its foundation rests in the animals that graze it.</span>
+        </p>
+      </div>
+      <div class="col-photo">
+        <div class="ph" style="min-height:420px">
+          <img src="images/saari.jpg" alt="Tornionjoen saarilaitumet" onerror="this.style.display='none'">
+          <span class="ph-icon">🏝</span>
+          <span class="ph-tag">
+            <span class="lang-fi-inline">Tornionjoen saarilaitumet</span>
+            <span class="lang-sv-inline">Torneälvens öbeten</span>
+            <span class="lang-en-inline">River island pastures</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARINA -->
+<section class="section tarina reveal" id="tarina">
+  <div class="section-inner">
+    <div class="two-col">
+      <div class="col-photo">
+        <div class="ph" style="min-height:460px">
+          <img src="images/ilmari.jpg" alt="Ilmari Majuri kyyttöjen kanssa" onerror="this.style.display='none'">
+          <span class="ph-icon">👤</span>
+          <span class="ph-tag">Ilmari Majuri</span>
+        </div>
+      </div>
+      <div>
+        <span class="section-eyebrow">
+          <span class="lang-fi">Isännän tarina</span>
+          <span class="lang-sv">Ägarens historia</span>
+          <span class="lang-en">The owner's story</span>
+        </span>
+        <h2 class="section-title">
+          <span class="lang-fi">Ilmari Majuri: kaikki lehmien edelle</span>
+          <span class="lang-sv">Ilmari Majuri: allt för korna</span>
+          <span class="lang-en">Ilmari Majuri: everything for the cattle</span>
+        </h2>
+        <div class="divider"></div>
+        <p class="section-body">
+          <span class="lang-fi">Ilmari Majuri osti ensimmäiset kyyttölehmänsä 17-vuotiaana, vaikka asui silloin Helsingissä. Vuonna 2000 hän löysi elämäntehtävänsä vieraillessaan Vieno Nenosen perinteisessä navettakompleksissa Kiteellä – mullantungoslattioineen ja kivimuuseineen. Kyyttöjen geneettinen perimä oli säilynyt siellä lähes koskemattomana.</span>
+          <span class="lang-sv">Ilmari Majuri köpte sina första kyyttö-kor som 17-åring, trots att han bodde i Helsingfors. År 2000 fann han sitt livskall när han besökte Vieno Nenonens traditionella gårdskomplex i Kitee – med lergolv och stenväggar. Kyyttö-kons genetiska arv hade bevarats nästan intakt där.</span>
+          <span class="lang-en">Ilmari Majuri bought his first kyyttö cattle at 17, while still living in Helsinki. In 2000 he found his life's mission visiting Vieno Nenonen's traditional farmstead complex in Kitee – earthen floors and stone walls. The kyyttö's genetic heritage had survived there nearly untouched.</span>
+        </p>
+        <div class="blockquote">
+          <p>
+            <span class="lang-fi">"Tunne oli heti se, että minä en pääse näistä irti."</span>
+            <span class="lang-sv">"Känslan var omedelbar: jag kan inte komma loss från dem."</span>
+            <span class="lang-en">"The feeling was immediate: I cannot break free from these animals."</span>
+          </p>
+          <cite>— Ilmari Majuri</cite>
+        </div>
+        <p class="section-body">
+          <span class="lang-fi">Vuonna 2014 Ilmari muutti Tornion Kantojärvelle, missä tila on nyt kotipaikka lauman kanssa. Hän viljelee ilman traktoria, hevosen avulla, ja pitää lehmät ulkona säällä kuin säällä. Se ei ole nostalgiaa – se on vakaumus siitä, miten eläimiä tulisi kohdella ja miten maata tulisi hoitaa.</span>
+          <span class="lang-sv">År 2014 flyttade Ilmari till Kantojärvi i Torneå, som nu är hemort för gården och hjorden. Han brukar utan traktor, med hjälp av hästar, och håller korna ute i alla väder. Det är inte nostalgi – det är en övertygelse om hur djur bör behandlas och hur mark bör skötas.</span>
+          <span class="lang-en">In 2014 Ilmari moved to Kantojärvi in Tornio, which now serves as home for the farm and herd. He farms without tractors, using horses, and keeps cattle outdoors in all weather. This is not nostalgia – it is a conviction about how animals should be treated and how land should be managed.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery reveal">
+  <div class="gallery-title-row">
+    <span class="section-eyebrow" style="color:var(--reed)">
+      <span class="lang-fi">Tilalta</span>
+      <span class="lang-sv">Från gården</span>
+      <span class="lang-en">From the farm</span>
+    </span>
+    <h2 class="section-title" style="color:var(--snow)">
+      <span class="lang-fi">Elämää Kantojärven rannoilla</span>
+      <span class="lang-sv">Livet vid Kantojärvis stränder</span>
+      <span class="lang-en">Life on the shores of Kantojärvi</span>
+    </h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-cell">
+      <div class="ph">
+        <img src="images/gallery1.jpg" alt="Kyyttöjä laitumella" onerror="this.style.display='none'">
+        <span class="ph-icon">📸</span>
+        <span class="ph-tag">gallery1.jpg</span>
+      </div>
+    </div>
+    <div class="gallery-cell">
+      <div class="ph">
+        <img src="images/gallery2.jpg" alt="Tornionjoki" onerror="this.style.display='none'">
+        <span class="ph-icon">📸</span>
+        <span class="ph-tag">gallery2.jpg</span>
+      </div>
+    </div>
+    <div class="gallery-cell">
+      <div class="ph">
+        <img src="images/gallery3.jpg" alt="Vanha navetta" onerror="this.style.display='none'">
+        <span class="ph-icon">📸</span>
+        <span class="ph-tag">gallery3.jpg</span>
+      </div>
+    </div>
+    <div class="gallery-cell">
+      <div class="ph">
+        <img src="images/gallery4.jpg" alt="Kyyttövasikka" onerror="this.style.display='none'">
+        <span class="ph-icon">📸</span>
+        <span class="ph-tag">gallery4.jpg</span>
+      </div>
+    </div>
+    <div class="gallery-cell">
+      <div class="ph">
+        <img src="images/gallery5.jpg" alt="Pohjansuomalainen lammas" onerror="this.style.display='none'">
+        <span class="ph-icon">📸</span>
+        <span class="ph-tag">gallery5.jpg</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TILAUS -->
+<section class="section tilaus reveal" id="tilaus">
+  <div class="section-inner">
+    <span class="section-eyebrow">
+      <span class="lang-fi">Osta suoraan tilalta</span>
+      <span class="lang-sv">Köp direkt från gården</span>
+      <span class="lang-en">Buy direct from the farm</span>
+    </span>
+    <h2 class="section-title">
+      <span class="lang-fi">Kolme askelta lihaan</span>
+      <span class="lang-sv">Tre steg till köttet</span>
+      <span class="lang-en">Three steps to the meat</span>
+    </h2>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <h3 class="step-title">
+          <span class="lang-fi">Ota yhteyttä</span>
+          <span class="lang-sv">Ta kontakt</span>
+          <span class="lang-en">Get in touch</span>
+        </h3>
+        <p class="step-desc">
+          <span class="lang-fi">Soita tai lähetä sähköpostia Ilmarille. Kerro kiinnostuksestasi ja haluamastasi määrästä – lihaa myydään sekä kokonaisina puolikkaina, neljänneksinä että yksittäisinä palasina saatavuuden mukaan.</span>
+          <span class="lang-sv">Ring eller mejla Ilmari. Berätta om ditt intresse och önskad mängd – kött säljs som hela halvor, kvartsparter och enstaka bitar beroende på tillgång.</span>
+          <span class="lang-en">Call or email Ilmari. Describe your interest and desired quantity – meat is sold as whole halves, quarters, and individual cuts depending on availability.</span>
+        </p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <h3 class="step-title">
+          <span class="lang-fi">Sovitaan toimitus tai REKO</span>
+          <span class="lang-sv">Kom överens om leverans eller REKO</span>
+          <span class="lang-en">Arrange delivery or REKO</span>
+        </h3>
+        <p class="step-desc">
+          <span class="lang-fi">Lihaa saa noudettua suoraan tilalta Kantojärveltä tai tilaamalla REKO-renkaasta Tornion alueella. Sovitaan aina henkilökohtaisesti paras vaihtoehto.</span>
+          <span class="lang-sv">Köttet kan hämtas direkt från gården i Kantojärvi eller beställas via REKO-ringen i Torneåområdet. Vi kommer alltid överens personligen om det bästa alternativet.</span>
+          <span class="lang-en">Meat can be collected directly from the farm in Kantojärvi, or ordered through the REKO distribution ring in the Tornio area. We always agree personally on the best option.</span>
+        </p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <h3 class="step-title">
+          <span class="lang-fi">Nauti ainutlaatuisesta lihasta</span>
+          <span class="lang-sv">Njut av det unika köttet</span>
+          <span class="lang-en">Enjoy unique meat</span>
+        </h3>
+        <p class="step-desc">
+          <span class="lang-fi">Jokainen pala on luonnonlaidunkyytön kasvattamaa – tiedät tarkalleen sen alkuperän, kasvupaikan ja kasvatustavan. Liha kertoo oman tarinansa maustaan.</span>
+          <span class="lang-sv">Varje bit är uppfödd av en naturbetande kyyttö – du vet exakt dess ursprung, växtplats och skötsel. Köttet berättar sin egen historia i smaken.</span>
+          <span class="lang-en">Every piece is raised by a natural pasture kyyttö – you know exactly its origin, grazing land, and how it was raised. The meat tells its own story through flavour.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- YHTEYSTIEDOT -->
+<section class="contact reveal" id="contact">
+  <div class="contact-inner">
+    <div>
+      <span class="section-eyebrow">
+        <span class="lang-fi">Yhteystiedot</span>
+        <span class="lang-sv">Kontaktuppgifter</span>
+        <span class="lang-en">Contact</span>
+      </span>
+      <h2 class="section-title">
+        <span class="lang-fi">Otetaan yhteyttä</span>
+        <span class="lang-sv">Kontakta oss</span>
+        <span class="lang-en">Get in touch</span>
+      </h2>
+      <div class="divider" style="background:var(--reed)"></div>
+      <div style="margin-top:28px">
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <div>
+            <span class="contact-label">
+              <span class="lang-fi">Osoite</span>
+              <span class="lang-sv">Adress</span>
+              <span class="lang-en">Address</span>
+            </span>
+            <span class="contact-value">Kantojärventie 364, 95590 Tornio</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📞</span>
+          <div>
+            <span class="contact-label">
+              <span class="lang-fi">Puhelin</span>
+              <span class="lang-sv">Telefon</span>
+              <span class="lang-en">Phone</span>
+            </span>
+            <span class="contact-value"><a href="tel:+358404105202">040 410 5202</a></span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">✉</span>
+          <div>
+            <span class="contact-label">
+              <span class="lang-fi">Sähköposti</span>
+              <span class="lang-sv">E-post</span>
+              <span class="lang-en">Email</span>
+            </span>
+            <span class="contact-value"><a href="mailto:ilmari.majuri@gmail.com">ilmari.majuri@gmail.com</a></span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📘</span>
+          <div>
+            <span class="contact-label">Facebook</span>
+            <span class="contact-value"><a href="https://www.facebook.com/p/Oukanm%C3%A4en-kyytt%C3%B6-100057418660624/" target="_blank" rel="noopener">Oukanmäen kyyttö</a></span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-reko">
+        <div class="contact-reko-title">
+          <span class="lang-fi">REKO Tornio</span>
+          <span class="lang-sv">REKO Torneå</span>
+          <span class="lang-en">REKO Tornio</span>
+        </div>
+        <p class="contact-reko-body">
+          <span class="lang-fi">Lihaa on saatavilla myös REKO-renkaan kautta Tornion alueella. Seuraa Facebook-sivuja ajantasaisen tiedon saamiseksi REKO-tarjouksista ja saatavuudesta.</span>
+          <span class="lang-sv">Kött finns också tillgängligt via REKO-ringen i Torneåområdet. Följ Facebook-sidan för uppdaterad information om REKO-erbjudanden och tillgänglighet.</span>
+          <span class="lang-en">Meat is also available through the REKO distribution ring in the Tornio area. Follow the Facebook page for up-to-date information on REKO offerings and availability.</span>
+        </p>
+      </div>
+    </div>
+    <div>
+      <div class="map-ph" id="mapContainer">
+        <span style="font-size:1.8rem;opacity:.3">🗺</span>
+        <span style="font-size:0.78rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(154,184,192,.5)">Kantojärvi, Tornio</span>
+        <a href="https://www.openstreetmap.org/?mlat=65.762&mlon=24.471&zoom=13" target="_blank" rel="noopener" class="map-link" style="display:block">
+          <span class="lang-fi">Avaa kartalla</span>
+          <span class="lang-sv">Öppna i karta</span>
+          <span class="lang-en">Open on map</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <img src="images/logo.jpg" alt="logo" class="footer-logo">
+    <span class="footer-name">Oukanmäen kyyttö &nbsp;·&nbsp; Kantojärvi, Tornio</span>
+  </div>
+  <span class="footer-demo">Demo — designed by Anton Jalonen</span>
+</footer>
+
+<script>
+// ─── LANGUAGE ───
+const html = document.documentElement;
+const langBtns = document.querySelectorAll('.lang-btn');
+function setLang(l) {
+  html.dataset.lang = l;
+  langBtns.forEach(b => b.classList.toggle('active', b.dataset.l === l));
+}
+langBtns.forEach(b => b.addEventListener('click', () => setLang(b.dataset.l)));
+
+// ─── MOBILE MENU ───
+const menuBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const closeMenu = document.getElementById('closeMenu');
+menuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+document.querySelectorAll('.mobile-link').forEach(a => {
+  a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+});
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── OSM MAP (lazy) ───
+const mapContainer = document.getElementById('mapContainer');
+if (mapContainer) {
+  const io = new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) {
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.openstreetmap.org/export/embed.html?bbox=24.371%2C65.712%2C24.571%2C65.812&layer=mapnik&marker=65.762%2C24.471';
+      iframe.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.minHeight = '280px';
+      iframe.style.border = 'none';
+      iframe.style.display = 'block';
+      iframe.setAttribute('allowfullscreen', '');
+      mapContainer.style.display = 'block';
+      mapContainer.style.padding = '0';
+      mapContainer.innerHTML = '';
+      mapContainer.appendChild(iframe);
+      io.unobserve(mapContainer);
+    }
+  }, { threshold: 0.2 });
+  io.observe(mapContainer);
+}
+</script>
+</body>
+</html>
